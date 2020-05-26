@@ -24,8 +24,8 @@ pragma solidity ^0.5.0;
     // mapping(uint => productDescription) public product_description;
     mapping(uint => Item) public Inventory;
     mapping(uint => product_uri) public Products; // map to URI
-    mapping(uint => string) public Locations;
-    mapping(uint => string) public Employees;
+    mapping(uint => location_uri) public Locations;
+    mapping(uint => employee_uri) public Employees;
     
     
     
@@ -35,9 +35,10 @@ pragma solidity ^0.5.0;
     event RegisterEmployee(string name, string department, string role, uint accessLevel);
     
     event TransferItem(uint items_ids, uint product_id, uint location_id, uint employee_id, string item_uri);
-    event LocationEvent();
-    event EmployeeEvent();
-    event InventoryUsedEvent();
+    event UpdateProduct)string product_uri);
+    event UpdateLocation(string location_uri);
+    event UpdateEmployee(sting employee_uri);
+
     
     modifier is_active(item_id) {
         require(Inventory[item_id].is_active);
@@ -77,7 +78,7 @@ pragma solidity ^0.5.0;
         
         Locations[location_id] = location_id;
         
-        emit RegisterLocation(location uri);
+        emit RegisterLocation(location_uri);
         
         return location_id
     }
@@ -96,14 +97,34 @@ pragma solidity ^0.5.0;
     
     function updateAccessLevel
     
-    function updateItem
+    function updateItem(uint item_id, uint product_id, string expiration_date, bool is_active, uint location_id) {
+
+    }
     
-    function updateProduct
+    function updateProduct(uint product_id, sting product_uri) public {
+        Products[product_id].product_uri = product_uri
+
+        emit UpdateProduct(Products[product_id].product_uri)
+    }
+
+    function updateLocation(uint location_id, string location_uri) public {
+        Locations[location_id].location_uri = location_uri
+
+        emit UpdateLocation(Locations[location_id].location_uri)
+    }
     
-    function updateLocation
+    function updateEmployee(uint employee_id, sting employee_uri) public {
+        Employees[employee_id].employee_uri = employee_uri
+
+        emit UpdateEmployee(Employees[employee_id].employee_uri)
+    }
     
-    function updateEmployee
-    
+    //     function updateOwnerName(owner_id, name) {
+    //     Owners[owner_id].name = name;
+        
+    //     emit updateOwner(Owners[owner_id].name, Owners[owner_id].age, Owners[owner_id].pets)
+    // }
+
     
     
     
