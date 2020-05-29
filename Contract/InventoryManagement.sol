@@ -25,9 +25,6 @@ contract InventoryManagement {
     mapping(uint => string) public Employees;
     
     event RegisterItem(uint employee_id, uint location_id, uint product_id);
-    // event RegisterProduct(string name, string description, uint quantity);
-    // event RegisterLocation(string name, string department);
-    // event RegisterEmployee(string name, string department, string role, uint accessLevel);
     event RegisterProduct(uint product_id, string product_uri);
     event RegisterLocation(uint location_id, string location_uri);
     event RegisterEmployee(uint employee_id, string employee_uri);
@@ -112,6 +109,4 @@ contract InventoryManagement {
 
         emit UpdateEmployee(employee_id, employee_uri);
     }
-    // Event to manage the function and a struct to reference it
-    //Registering a new piece of inventory (crypto fax excercise 22.1 for routing URI to Pinata)
 }
