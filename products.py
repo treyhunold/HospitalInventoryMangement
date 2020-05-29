@@ -140,8 +140,8 @@ if __name__ == "__main__":
         register = input("What are you trying to register: ")
 
         if register == "item":
-            item_id, item_uri = registerNewitem()
-            print("Report IPFS Hash", item_uri)
+            receipt = registerNewitem()
+            print("Report IPFS Hash", receipt)
 
     elif action == "update":
         update = input("What are you updating? ")
