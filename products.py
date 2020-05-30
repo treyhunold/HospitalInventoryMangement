@@ -32,7 +32,7 @@ def registerNewitem():
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     print("Report IPFS Hash:", item_uri)
-    return receipt  
+    return receipt
 
 def registerNewProduct():
     product_id = int(input("Product ID of the item: " ))
@@ -195,7 +195,7 @@ if __name__ == "__main__":
     action = input("Do you want to register, update, or view information? ")
 
     if action == "register":
-        register = input("What are you trying to register: ")
+        register = input("What are you trying to register: item, product, location, or employee? ")
 
         if register == "item":
             receipt = registerNewitem()
@@ -214,7 +214,7 @@ if __name__ == "__main__":
             
 
     elif action == "update":
-        update = input("What are you updating? ")
+        update = input("What are you updating: item, product, location, or employee? ")
     
         if update == "item":
             receipt = updateItem()
