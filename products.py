@@ -31,6 +31,7 @@ def registerNewitem():
         {"from": w3.eth.accounts[0]}
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    print("Report IPFS Hash:", item_uri)
     return receipt  
 
 def registerNewProduct():
@@ -49,7 +50,7 @@ def registerNewProduct():
         {"from": w3.eth.accounts[0]}
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    
+    print("Report IPFS Hash:", product_uri)
     return receipt
 
 def registerNewLocation():
@@ -70,7 +71,7 @@ def registerNewLocation():
         {"from": w3.eth.accounts[0]}
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    
+    print("Report IPFS Hash:", location_uri)
     return receipt
     
 def registerNewEmployee():
@@ -95,7 +96,7 @@ def registerNewEmployee():
         {"from": w3.eth.accounts[0]}
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    
+    print("Report IPFS Hash:", employee_uri)
     return receipt
 
 def updateItem():
@@ -121,6 +122,7 @@ def updateItem():
         {"from": w3.eth.accounts[0]}
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    print("Report IPFS Hash:", item_uri)
     return receipt
 
 def updateProduct(product_id):
@@ -138,6 +140,7 @@ def updateProduct(product_id):
     )
 
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    print("Report IPFS Hash:", product_uri)
     return receipt
 
 def updateLocation(location_id):
@@ -156,6 +159,7 @@ def updateLocation(location_id):
         {"from": w3.eth.accounts[0]}
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    print("Report IPFS Hash:", location_uri)
     return receipt
     
 def updateEmployee(employee_id):
@@ -178,6 +182,7 @@ def updateEmployee(employee_id):
         {"from": w3.eth.accounts[0]}
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    print("Report IPFS Hash:", employee_uri)
     return receipt 
 
 def get_data_from_uri(uri_hash):
