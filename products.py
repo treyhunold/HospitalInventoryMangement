@@ -1,5 +1,6 @@
 import sys
 from inventory import convertDataToJSON, pinJSONtoIPFS, initContract, w3
+import requests as r
 
 from pprint import pprint
 
@@ -178,10 +179,15 @@ def updateEmployee(employee_id):
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     return receipt 
-    
+
+def get_data_from_uri(uri_hash):
+    hash = r.get(f"https://ipfs.io/ipfs/{uri_hash}").json()
+    return hash
+
+
 if __name__ == "__main__":
 
-    action = input("Are you registering or updating information? ")
+    action = input("Do you want to register, update, or view information? ")
 
     if action == "register":
         register = input("What are you trying to register: ")
@@ -198,6 +204,9 @@ if __name__ == "__main__":
         elif register == "employee":
             receipt = registerNewEmployee()
             print("Report IPFS Hash", receipt)
+        else:
+            print("Please input item, product, location, or employee and start over again.")
+            
 
     elif action == "update":
         update = input("What are you updating? ")
@@ -217,9 +226,13 @@ if __name__ == "__main__":
             employee_id = int(input("What employee's ID are you updating? "))
             receipt = updateEmployee(employee_id)
             print("Report IPFS Hash", receipt)
+        else:
+            print("Please input item, product, location, or employee and start over again.")
 
-        
-
-
-
+    elif action == "view":
+        hash = input("What is the hash of the information you are trying to view? ")
+        receipt = get_data_from_uri(hash)
+        print(receipt)
+    else:
+        print("Please input register, update, or view information and start again.")
         
