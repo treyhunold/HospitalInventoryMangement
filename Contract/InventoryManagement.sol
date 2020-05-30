@@ -48,14 +48,12 @@ contract InventoryManagement {
 
     }
     
-    function registerNewProduct(uint product_id, /*string name, string description*/ string memory product_uri) public returns(uint) {
+    function registerNewProduct(uint product_id, string memory product_uri) public returns(uint) {
         product_ids.increment();
         
         product_id = product_ids.current();
         
         Products[product_id] = product_uri;
-        
-        Products[product_id].name =
         
         emit RegisterProduct(product_id, product_uri);
         

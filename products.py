@@ -1,97 +1,225 @@
 import sys
-from crypto import convertDataToJSON, pinJSONtoIPFS, initContract, w3
+from inventory import convertDataToJSON, pinJSONtoIPFS, initContract, w3
 
 from pprint import pprint
 
-inventory_management = initContract()
+InventoryManagement = initContract()
+
 
 def registerNewitem():
+    item_id = int(input("Item ID: "))
     product_id = int(input("Product ID of the item: "))
     expiration_date = input("Expiration date of the item: ")
-    is_active = input("Is the item still active?: ")
-    location_id = int(input("Location ID: ")
-    employee_id = int(input("Employee ID: ")
+    is_active = bool(input("Is the item still active?: "))
+    location_id = int(input("Location ID: "))
+    employee_id = int(input("Employee ID: "))
+
+    item = {
+        "item_id": item_id,
+        "product_id": product_id,
+        "expiration_date": expiration_date,
+        "is_active": is_active,
+        "location_id": location_id,
+        "employee_id": employee_id
+    }
     
-    json_data = convertDataToJSON(product_id, expiration_date, expiration_date, is_active, location_id, employee_id)
-    uri = pinJSONtoIPFS(json_data)
-    
-    return item_id, uri
-    
+    json_data = convertDataToJSON(item)
+    item_uri = pinJSONtoIPFS(json_data)
+
+    tx_hash = InventoryManagement.functions.registerNewItem(employee_id, location_id, product_id, expiration_date, is_active, item_uri).transact(
+        {"from": w3.eth.accounts[0]}
+    )
+    receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    return receipt  
 
 def registerNewProduct():
     product_id = int(input("Product ID of the item: " ))
     product_description = input("Description of the product: ")
+
+    product = {
+        "product_id": product_id,
+        "product_description": product_description
+    }
     
-    json_data = convertDataToJSON(product_id, product_description)
+    json_data = convertDataToJSON(product)
     product_uri = pinJSONtoIPFS(json_data)
+
+    tx_hash = InventoryManagement.functions.registerNewProduct(product_id, product_uri).transact(
+        {"from": w3.eth.accounts[0]}
+    )
+    receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     
-    return product_id, product_uri
-    
+    return receipt
 
 def registerNewLocation():
     location_id = int(input("Location ID: "))
     location_name = input("Location name: ")
+    location_department = input("Location department: ")
+
+    location = {
+        "location_id": location_id,
+        "location_name": location_name,
+        "location_department": location_department
+    }
     
-    json_data = convertDataToJSON(location_id, location_name)
+    json_data = convertDataToJSON(location)
     location_uri = pinJSONtoIPFS(json_data)
+
+    tx_hash = InventoryManagement.functions.registerNewLocation(location_id, location_uri).transact(
+        {"from": w3.eth.accounts[0]}
+    )
+    receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     
-    return location_id, location_uri
-    
+    return receipt
     
 def registerNewEmployee():
-    employee_id = int(input("Emploee ID of employee: "))
+    employee_id = int(input("Employee ID of employee: "))
     employee_name = input("Name of the employee: ")
+    employee_department = input("Department of employee: ")
     employee_role = input("Job position of employee: ")
+    employee_access_level = input("Level of access: ")
+
+    employee = {
+        "employee_id": employee_id,
+        "employee_name": employee_name,
+        "employee_department": employee_department,
+        "employee_role": employee_role,
+        "employee_access_level": employee_access_level
+    }
     
-    json_data = convertDataToJSON(employee_id, employee_name, employee_role)
+    json_data = convertDataToJSON(employee)
     employee_uri = pinJSONtoIPFS(json_data)
+
+    tx_hash = InventoryManagement.functions.registerNewEmployee(employee_id, employee_uri).transact(
+        {"from": w3.eth.accounts[0]}
+    )
+    receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     
-    return employee_id, employee_uri
-    
+    return receipt
 
+def updateItem():
+    item_id = int(input("Item ID: "))
+    product_id = int(input("Product ID of the item: "))
+    expiration_date = input("Expiration date of the item: ")
+    is_active = input("Is the item still active?: ")
+    location_id = int(input("Location ID: "))
+    employee_id = int(input("Employee ID: "))
 
+    item = {
+        "product_id": product_id,
+        "expiration_date": expiration_date,
+        "is_active": is_active,
+        "location_id": location_id,
+        "employee_id": employee_id
+    }
 
-def updateItem(item_id, product_id, location_id, employee_id, expiration_date, item_uri):
-    tx_hash = InventoryManagement.functions.updateItem(token_id, product_id, location_id, employee_id, expiration_date, item_uri).transact(
+    json_data = convertDataToJSON(item)
+    item_uri = pinJSONtoIPFS(json_data)
+
+    tx_hash = InventoryManagement.functions.updateItem(employee_id, item_id, product_id, expiration_date, location_id, item_uri).transact(
         {"from": w3.eth.accounts[0]}
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     return receipt
 
-def updateProduct(product_id, product_uri):
+def updateProduct(product_id):
+    product_description = input("Description of the product: ")
+
+    product = {
+        "product_description": product_description
+    }
+    
+    json_data = convertDataToJSON(product)
+    product_uri = pinJSONtoIPFS(json_data)
+
     tx_hash = InventoryManagement.functions.updateProduct(product_id, product_uri).transact(
         {"from": w3.eth.accounts[0]}
     )
+
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     return receipt
 
-def updateLocation(location_id, location_uri):
+def updateLocation(location_id):
+    location_name = input("Location name: ")
+    location_department = input("Location department: ")
+
+    location = {
+        "location_name": location_name,
+        "location_department": location_department
+    }
+    
+    json_data = convertDataToJSON(location)
+    location_uri = pinJSONtoIPFS(json_data)
+
     tx_hash = InventoryManagement.functions.updateLocation(location_id, location_uri).transact(
         {"from": w3.eth.accounts[0]}
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     return receipt
     
-def updateEmployee(employee_id, employee_uri):
+def updateEmployee(employee_id):
+    employee_name = input("Name of the employee: ")
+    employee_department = input("Department of employee: ")
+    employee_role = input("Job position of employee: ")
+    employee_access_level = input("Level of access: ")
+
+    employee = {
+        "employee_name": employee_name,
+        "employee_department": employee_department,
+        "employee_role": employee_role,
+        "employee_access_level": employee_access_level
+    }
+    
+    json_data = convertDataToJSON(employee)
+    employee_uri = pinJSONtoIPFS(json_data)
+
     tx_hash = InventoryManagement.functions.updateEmployee(employee_id, employee_uri).transact(
         {"from": w3.eth.accounts[0]}
     )
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    return receipt
+    return receipt 
     
-    
-    
-    
-    function updateProduct(uint product_id, string memory product_uri) public {
-        Products[product_id] = product_uri;
+if __name__ == "__main__":
 
-        emit UpdateProduct(product_id, product_uri);
-    }
+    action = input("Are you registering or updating information? ")
+
+    if action == "register":
+        register = input("What are you trying to register: ")
+
+        if register == "item":
+            receipt = registerNewitem()
+            print("Report IPFS Hash", receipt)
+        elif register == "product":
+            receipt = registerNewProduct()
+            print("Report IPFS Hash", receipt)
+        elif register == "location":
+            receipt = registerNewLocation()
+            print("Report IPFS Hash", receipt)
+        elif register == "employee":
+            receipt = registerNewEmployee()
+            print("Report IPFS Hash", receipt)
+
+    elif action == "update":
+        update = input("What are you updating? ")
     
-    
-    function updateItem(uint employee_id, uint item_id, uint product_id, string memory expiration_date, uint location_id, string memory item_uri) public {
-        Inventory[item_id].item_uri = item_uri;
+        if update == "item":
+            receipt = updateItem()
+            print("Report IPFS Hash", receipt)
+        elif update == "product":
+            product_id = int(input("What product's ID are you updating? "))
+            receipt = updateProduct(product_id)
+            print("Report IPFS Hash", receipt)
+        elif update == "location":
+            location_id = int(input("What location's ID are you updating? "))
+            receipt = updateLocation(location_id)
+            print("Report IPFS Hash", receipt)
+        elif update == "employee":
+            employee_id = int(input("What employee's ID are you updating? "))
+            receipt = updateEmployee(employee_id)
+            print("Report IPFS Hash", receipt)
+
         
-        emit TransferItem(employee_id, item_id, product_id, expiration_date, location_id, item_uri);
-    }
- 
+
+
+
+        
