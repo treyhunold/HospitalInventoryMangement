@@ -1,9 +1,4 @@
 # HospitalInventoryMangement
-<<<<<<< HEAD
-=======
-
-### Using Solidity smart contracts and blockchain technology to track products within an intra-hospital environment
->>>>>>> a8f72ab19a21068b3536268244e926a1950d97f0
 
 ## Business Objective: 
 
@@ -29,9 +24,3 @@ Created a Python file products.py file to interact with the smart contract. We c
 ### IPFS Interaction
 
 Establish the connection to a Pinata account to save information to an IPFS. Data is saved in JSOn format and can be accessed through IPFS hash.
-
-
-## Inventory (item_ids) - Individual Items
-## Product (product_ids) - Types of Items
-## Location (location_ids) - Where the items are
-## Employee (employee_ids) - Who is transferring the item
