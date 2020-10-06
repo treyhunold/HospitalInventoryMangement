@@ -26,3 +26,12 @@ Created a Python file products.py file to interact with the smart contract. We c
 ### IPFS Interaction
 
 Establish the connection to a Pinata account to save information to an IPFS. Data is saved in JSOn format and can be accessed through IPFS hash.
+
+### Technologies Used
+
+* Python
+* Solidity
+* Ethereum
+* Kovan
+* Web3
+* Pinata
